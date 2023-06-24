@@ -17,12 +17,14 @@ export class AuthService {
     const user = await this.userService.signup(createAuthDto);
     const payload = { sub: user.id };
     const access_token = await this.jwtService.signAsync(payload, {
-      secret: this.config.get('AT_KEY'),
+      secret: this.config.get('PRIVATE_KEY'),
       expiresIn: '15m',
+      algorithm: 'RS256',
     });
     const refresh_token = await this.jwtService.signAsync(payload, {
-      secret: this.config.get('RT_KEY'),
+      secret: this.config.get('PRIVATE_KEY'),
       expiresIn: '7d',
+      algorithm: 'RS256',
     });
     await this.userService.update(user.id, {
       refresh_token: refresh_token,
@@ -37,12 +39,14 @@ export class AuthService {
     const user = await this.userService.signin(createAuthDto);
     const payload = { sub: user.id };
     const access_token = await this.jwtService.signAsync(payload, {
-      secret: this.config.get('AT_KEY'),
+      secret: this.config.get('PRIVATE_KEY'),
       expiresIn: '15m',
+      algorithm: 'RS256',
     });
     const refresh_token = await this.jwtService.signAsync(payload, {
-      secret: this.config.get('RT_KEY'),
+      secret: this.config.get('PRIVATE_KEY'),
       expiresIn: '7d',
+      algorithm: 'RS256',
     });
     await this.userService.update(user.id, {
       refresh_token: refresh_token,
@@ -68,12 +72,14 @@ export class AuthService {
     const payload = { sub: user.id };
 
     const access_token = await this.jwtService.signAsync(payload, {
-      secret: this.config.get('AT_KEY'),
+      secret: this.config.get('PRIVATE_KEY'),
       expiresIn: '15m',
+      algorithm: 'RS256',
     });
     const refresh_token = await this.jwtService.signAsync(payload, {
-      secret: this.config.get('RT_KEY'),
+      secret: this.config.get('PRIVATE_KEY'),
       expiresIn: '7d',
+      algorithm: 'RS256',
     });
     await this.userService.update(user.id, {
       refresh_token: refresh_token,
