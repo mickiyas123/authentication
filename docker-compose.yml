@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
-      POSTGRES_DB: nest_auth
+      POSTGRES_DB: nest_session_auth
   redis:
     image: redis:latest
     ports:
