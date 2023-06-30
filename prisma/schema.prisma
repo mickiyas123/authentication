@@ -14,7 +14,6 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   Password  String?
-  refresh_token String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
