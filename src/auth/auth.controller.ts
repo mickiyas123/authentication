@@ -6,28 +6,40 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { UseGuards } from '@nestjs/common';
+import { LocalAuthGuard } from 'src/common/guards/local.auth.guard';
+import { AuthenticatedGuard } from 'src/common/guards/authenticated.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
-  create(@Body() createAuthDto: CreateAuthDto) {
+  @Post('signup')
+  signup(@Body() createAuthDto: CreateAuthDto) {
     return this.authService.create(createAuthDto);
   }
 
-  @Get()
-  findAll() {
-    return this.authService.findAll();
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  findAll(@Request() req) {
+    return req.user;
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
+  @UseGuards(AuthenticatedGuard)
+  @Get('protected')
+  protected() {
+    return 'protected route';
+  }
+
+  @Get('logout')
+  findOne(@Request() req) {
+    req.session.destroy();
+    return { msg: 'logut' };
   }
 
   @Patch(':id')
