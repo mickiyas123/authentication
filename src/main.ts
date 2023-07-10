@@ -15,7 +15,7 @@ async function bootstrap() {
       secret: 'my-secret',
       resave: false,
       saveUninitialized: false,
-      cookie: { maxAge: 3600000 },
+      cookie: { maxAge: 60 * 60 * 24 * 7 },
     }),
   );
   app.useGlobalFilters(
