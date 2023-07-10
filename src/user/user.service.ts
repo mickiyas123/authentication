@@ -9,7 +9,7 @@ export class UserService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createUserDto: CreateUserDto) {
     const hashedPassword = await argon.hash(createUserDto.password);
-    const user = await this.prisma.user.create({
+    const user = await this.prisma.users.create({
       data: {
         email: createUserDto.email,
         password: hashedPassword,
@@ -23,7 +23,7 @@ export class UserService {
   }
 
   async validateUser(email: string, password: string) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.users.findUnique({
       where: { email: email },
     });
 
@@ -41,7 +41,7 @@ export class UserService {
   }
 
   async findOne(email: string) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.users.findUnique({
       where: { email: email },
     });
     return user;
