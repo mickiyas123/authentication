@@ -25,7 +25,7 @@ export class AuthController {
   }
 
   @UseGuards(LocalAuthGuard)
-  @Post('login')
+  @Post('signin')
   findAll(@Request() req) {
     return req.user;
   }
